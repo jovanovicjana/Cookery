@@ -1,20 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import "react-native-gesture-handler";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import MainNavigator from "./navigation/MainNavigator";
+import { useFonts } from "expo-font";
+import { initializeDatabase } from "./utils/database";
+
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
+  //ucitaj fontive
+  const [fontsLoaded] = useFonts({
+    "Lilita-One-Regular": require("./assets/fonts/LilitaOne-Regular.ttf"),
+  });
+
+  useEffect(() => {
+    initializeDatabase(); // Kreiranje baze i tabela
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <MainNavigator />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
